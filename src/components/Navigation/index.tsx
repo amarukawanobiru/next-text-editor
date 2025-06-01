@@ -14,7 +14,7 @@ export const Navigation = ({ className, ...props }: NavigationProps) => {
     <nav {...props} className={cn("px-6 border-b", className)}>
       <ul className="h-12 flex items-center gap-x-2">
         {navItems.map(({ href, title }) => (
-          <li key={href} className="px-2">
+          <li key={href}>
             <NavigationItem href={href} title={title} />
           </li>
         ))}

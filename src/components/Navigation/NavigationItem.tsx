@@ -23,7 +23,7 @@ export const NavigationItem = ({ href, title }: NavigationItemProps) => {
           isActive && "after:visible",
         )}
       >
-        <span>{title}</span>
+        <span className="font-normal">{title}</span>
       </Link>
     </Button>
   );
