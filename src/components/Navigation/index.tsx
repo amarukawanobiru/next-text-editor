@@ -11,7 +11,7 @@ type NavigationProps = React.ComponentPropsWithoutRef<"nav">;
 
 export const Navigation = ({ className, ...props }: NavigationProps) => {
   return (
-    <nav {...props} className={cn("px-4 border-b", className)}>
+    <nav {...props} className={cn("px-6 border-b", className)}>
       <ul className="h-12 flex items-center gap-x-2">
         {navItems.map(({ href, title }) => (
           <li key={href} className="px-2">
