@@ -19,7 +19,7 @@ export const NavigationItem = ({ href, title }: NavigationItemProps) => {
       <Link
         href={href}
         className={cn(
-          "relative after:w-full after:h-0.5 after:bg-accent-foreground after:absolute after:-bottom-[7px] after:pointer-events-none after:invisible",
+          "relative after:w-full after:h-0.5 after:bg-accent-foreground after:absolute after:-bottom-2 after:pointer-events-none after:invisible",
           isActive && "after:visible",
         )}
       >
