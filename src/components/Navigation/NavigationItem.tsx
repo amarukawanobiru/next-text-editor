@@ -15,11 +15,11 @@ export const NavigationItem = ({ href, title }: NavigationItemProps) => {
   const isActive = pathname === href;
 
   return (
-    <Button variant="ghost" size="sm" className="rounded-xs" asChild>
+    <Button variant="ghost" size="sm" className="h-7 rounded-xs" asChild>
       <Link
         href={href}
         className={cn(
-          "relative after:w-full after:h-0.5 after:bg-accent-foreground after:absolute after:-bottom-2 after:pointer-events-none after:invisible",
+          "relative after:w-full after:h-0.5 after:bg-accent-foreground after:absolute after:-bottom-2.5 after:pointer-events-none after:invisible",
           isActive && "after:visible",
         )}
       >
