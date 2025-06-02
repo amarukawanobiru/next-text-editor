@@ -129,7 +129,7 @@ export const useInsertImageButton = () => {
 
     const formData = new FormData();
     formData.append("file", fileState.file);
-    const imageAltText = altText ? altText : "アップロードされた画像";
+    const imageAltText = altText ? altText : "";
     formData.append("altText", imageAltText);
 
     const endpoint = "/api/image/upload";
