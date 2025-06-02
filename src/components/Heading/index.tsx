@@ -18,7 +18,7 @@ export const Heading = ({
       <TagName {...props} className={cn("text-2xl font-bold", className)}>
         {title}
       </TagName>
-      <p className="text-muted-foreground text-sm font-medium">{`~ ${description} ~`}</p>
+      <p className="text-muted-foreground text-sm font-medium">{`- ${description} -`}</p>
     </hgroup>
   );
 };
