@@ -32,7 +32,7 @@ export const useInsertImageButton = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [dragActive, setDragActive] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [caption, setCaption] = useState("");
+  const [altText, setAltText] = useState("");
 
   const compressFileIfNeeded = useCallback(
     async (file: File) => {
@@ -115,7 +115,7 @@ export const useInsertImageButton = () => {
       URL.revokeObjectURL(fileState.objectUrl);
     }
 
-    setCaption("");
+    setAltText("");
     setFileState({
       file: null,
       objectUrl: "",
@@ -129,8 +129,8 @@ export const useInsertImageButton = () => {
 
     const formData = new FormData();
     formData.append("file", fileState.file);
-    const imageCaption = caption ? caption : "アップロードされた画像";
-    formData.append("caption", imageCaption);
+    const imageAltText = altText ? altText : "アップロードされた画像";
+    formData.append("altText", imageAltText);
 
     const endpoint = "/api/image/upload";
 
@@ -148,7 +148,7 @@ export const useInsertImageButton = () => {
         return;
       }
 
-      insertImage(editor, fileName, imageCaption);
+      insertImage(editor, fileName, imageAltText);
       resetImageSelection();
       setIsOpen(false);
     } catch (error) {
@@ -158,7 +158,7 @@ export const useInsertImageButton = () => {
     } finally {
       setIsUploading(false);
     }
-  }, [editor, fileState.file, caption, resetImageSelection]);
+  }, [editor, fileState.file, altText, resetImageSelection]);
 
   useEffect(() => {
     return () => {
@@ -178,8 +178,8 @@ export const useInsertImageButton = () => {
     isUploading,
     dragActive,
     fileInputRef,
-    caption,
-    setCaption,
+    altText,
+    setAltText,
     handleDrag,
     handleDrop,
     handleChange,

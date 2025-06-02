@@ -2,12 +2,7 @@
 
 import { useInsertImageButton } from "@/components/editor/Toolbar/InsertImageButton/index.hook";
 import { cn } from "@/lib/utils";
-import {
-  ImageIcon,
-  FolderInputIcon,
-  LoaderIcon,
-  FileInputIcon,
-} from "lucide-react";
+import { ImageIcon, LoaderIcon, FileInputIcon } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -33,8 +28,8 @@ export const InsertImageButton = () => {
     isUploading,
     dragActive,
     fileInputRef,
-    caption,
-    setCaption,
+    altText,
+    setAltText,
     handleDrag,
     handleDrop,
     handleChange,
@@ -45,11 +40,11 @@ export const InsertImageButton = () => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" size="icon" className="cursor-pointer">
+        <Button variant="outline" size="icon" className="rounded-xs">
           <ImageIcon />
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] rounded-xs">
         <DialogHeader>
           <DialogTitle>画像の挿入</DialogTitle>
           <DialogDescription>
@@ -59,15 +54,16 @@ export const InsertImageButton = () => {
         {objectUrl ? (
           <div className="space-y-4">
             <div>
-              <img src={objectUrl} alt="アップロードファイル" />
+              <img src={objectUrl} alt="" />
             </div>
 
             <div className="space-y-2">
-              <Label>画像のキャプション</Label>
+              <Label>画像の説明文</Label>
               <Input
-                onChange={(e) => setCaption(e.target.value)}
+                onChange={(e) => setAltText(e.target.value)}
                 disabled={isUploading}
-                value={caption}
+                value={altText}
+                className="rounded-xs"
               />
             </div>
           </div>
@@ -75,7 +71,7 @@ export const InsertImageButton = () => {
           <>
             <div
               className={cn(
-                "aspect-[4/3] border-2 border-dashed rounded-md grid place-items-center relative",
+                "aspect-[4/3] border-2 border-dashed rounded-xs grid place-items-center relative",
                 { "bg-primary-foreground": dragActive },
               )}
               onDragEnter={handleDrag}
@@ -90,34 +86,39 @@ export const InsertImageButton = () => {
               )}
               <div>
                 <div className="flex flex-col items-center">
-                  <FileInputIcon
-                    size={48}
-                    strokeWidth={1.5}
-                    className="text-muted-foreground"
-                  />
-                  <p className="mt-2 text-lg">ファイルをドラッグ＆ドロップ</p>
-                  <p className="mt-4 text-muted-foreground text-sm font-medium">
+                  <div className="flex flex-col items-center">
+                    <FileInputIcon
+                      size={48}
+                      strokeWidth={1.5}
+                      className="text-muted-foreground"
+                    />
+                    <p className="mt-4 text-lg font-bold">
+                      ファイルをドラッグ＆ドロップ
+                    </p>
+                  </div>
+
+                  <p className="mt-2 text-muted-foreground text-sm font-bold">
                     または
                   </p>
-                </div>
 
-                <div className="mt-8">
-                  <Button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      if (!fileInputRef.current) return;
-                      fileInputRef.current.click();
-                    }}
-                    className="w-full cursor-pointer"
-                  >
-                    選択してください
-                  </Button>
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    onChange={handleChange}
-                    className="hidden"
-                  />
+                  <div className="mt-4">
+                    <Button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (!fileInputRef.current) return;
+                        fileInputRef.current.click();
+                      }}
+                      className="w-full rounded-xs"
+                    >
+                      選択してください
+                    </Button>
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      onChange={handleChange}
+                      className="hidden"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -131,7 +132,7 @@ export const InsertImageButton = () => {
                 onClick={resetImageSelection}
                 variant="outline"
                 disabled={isUploading}
-                className="cursor-pointer"
+                className="rounded-xs"
               >
                 キャンセル
               </Button>
@@ -139,7 +140,7 @@ export const InsertImageButton = () => {
               <Button
                 onClick={handleUpload}
                 disabled={isUploading}
-                className="cursor-pointer"
+                className="rounded-xs"
               >
                 アップロード
               </Button>

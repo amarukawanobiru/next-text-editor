@@ -12,10 +12,7 @@ export const Toolbar = ({ className, ...props }: ToolbarProps) => {
   return (
     <div
       {...props}
-      className={cn(
-        "p-4 border rounded-xl bg-primary-foreground shadow-lg",
-        className,
-      )}
+      className={cn("p-2 border rounded-xs bg-background shadow-md", className)}
     >
       <div className="flex items-center flex-wrap gap-x-1">
         <ToggleBlock
