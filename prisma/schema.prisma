@@ -10,3 +10,19 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+model Document {
+  id        String   @id @default(cuid())
+  title     String
+  body      String
+  draft     Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model UploadedFile {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  caption   String
+  createdAt DateTime @default(now())
+}
