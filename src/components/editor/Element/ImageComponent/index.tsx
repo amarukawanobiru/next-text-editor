@@ -12,7 +12,10 @@ export const ImageComponent = (props: RenderElementPropsFor<ImageElement>) => {
     <div {...attributes}>
       {children}
 
-      <div contentEditable={false} className="relative w-full">
+      <div
+        contentEditable={false}
+        className="relative mx-auto w-full bg-foreground"
+      >
         <img
           src={`/uploads/${element.url}`}
           alt={element.caption}
@@ -25,7 +28,7 @@ export const ImageComponent = (props: RenderElementPropsFor<ImageElement>) => {
             visible: selected && focused,
           })}
         >
-          <Button onMouseDown={onMouseDown} className="cursor-pointer">
+          <Button onMouseDown={onMouseDown} variant="outline">
             <Trash2Icon />
           </Button>
         </div>

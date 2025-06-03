@@ -22,9 +22,9 @@ export const Editor = ({ className, ...props }: DraftFormProps) => {
         <div className="relative">
           <label
             htmlFor="title"
-            className="text-muted-foreground text-xs font-bold grid place-items-center absolute top-1/2 left-6 -translate-y-1/2"
+            className="h-8 text-muted-foreground text-xs font-bold grid place-items-center absolute top-4 left-6"
           >
-            タイトル:
+            タイトル：
           </label>
           <textarea
             id="title"

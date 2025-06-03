@@ -6,7 +6,7 @@ export default function Page() {
     <section className="px-6 pt-10">
       <Heading title="開発用" description="Feature" />
 
-      <Editor className="mt-10" />
+      <Editor className="mt-10 max-w-4xl" />
     </section>
   );
 }
