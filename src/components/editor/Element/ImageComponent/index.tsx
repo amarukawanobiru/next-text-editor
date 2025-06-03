@@ -28,7 +28,12 @@ export const ImageComponent = (props: RenderElementPropsFor<ImageElement>) => {
             visible: selected && focused,
           })}
         >
-          <Button onMouseDown={onMouseDown} variant="outline">
+          <Button
+            onMouseDown={onMouseDown}
+            variant="outline"
+            size="icon"
+            className="rounded-xs"
+          >
             <Trash2Icon />
           </Button>
         </div>

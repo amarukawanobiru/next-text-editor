@@ -5,6 +5,7 @@ const navItems = [
   { href: "/", title: "Home" },
   { href: "/draft", title: "Draft" },
   { href: "/edit", title: "Edit" },
+  { href: "/uploaded", title: "Uploaded" },
   { href: "/feature", title: "Feature" },
 ];
 

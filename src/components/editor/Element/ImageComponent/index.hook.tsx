@@ -33,6 +33,7 @@ export const useImageComponent = ({
           method: "POST",
           body: JSON.stringify({ fileName }),
         });
+
         const { success } = await response.json();
 
         if (!success) {

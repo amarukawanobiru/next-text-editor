@@ -1,6 +1,7 @@
 import { writeFile } from "node:fs/promises";
 import path from "node:path";
 import { type NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import sharp from "sharp";
 import prisma from "@/lib/db/prisma";
 
@@ -32,6 +33,7 @@ export const POST = async (req: NextRequest) => {
       await writeFile(filePath, converted);
     });
 
+    revalidatePath("/uploaded");
     return NextResponse.json({ success: true, fileName });
   } catch (error) {
     console.log("ok");

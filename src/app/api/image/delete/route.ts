@@ -1,6 +1,7 @@
 import { unlink } from "node:fs/promises";
 import path from "node:path";
 import { type NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import prisma from "@/lib/db/prisma";
 
 export const POST = async (req: NextRequest) => {
@@ -24,5 +25,6 @@ export const POST = async (req: NextRequest) => {
     return NextResponse.json({ success: false });
   }
 
+  revalidatePath("/uploaded");
   return NextResponse.json({ success: true });
 };
