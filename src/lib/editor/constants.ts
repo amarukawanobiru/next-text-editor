@@ -58,3 +58,6 @@ export const alignTypes = [
   { format: "right", icon: AlignRightIcon, label: "Toggle align right" },
   { format: "justify", icon: AlignJustifyIcon, label: "Toggle align justify" },
 ] satisfies { format: CustomElementFormat; icon: LucideIcon; label: string }[];
+
+export const LOCAL_STORAGE_KEY_DRAFT_TITLE = "draft-title";
+export const LOCAL_STORAGE_KEY_DRAFT_BODY = "draft-body";

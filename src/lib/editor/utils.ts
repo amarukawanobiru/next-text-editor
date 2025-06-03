@@ -1,3 +1,4 @@
+import type { Descendant, Text } from "slate";
 import type { CustomElement, CustomElementWithAlign } from "@/types/slate";
 import {
   type AlignType,
@@ -33,4 +34,31 @@ export const isImageUrl = (url: string) => {
 
   if (!ext) return false;
   return imageExtensions.includes(ext);
+};
+
+const isText = (node: unknown): node is Text => {
+  return (
+    typeof node === "object" &&
+    node !== null &&
+    "text" in node &&
+    typeof (node as { text: unknown }).text === "string"
+  );
+};
+
+const isDescendant = (node: unknown): node is Descendant => {
+  return (
+    typeof node === "object" &&
+    node !== null &&
+    "children" in node &&
+    Array.isArray((node as { children: unknown }).children) &&
+    (node as { children: unknown[] }).children.every(
+      (child: unknown) => isText(child) || isDescendant(child),
+    )
+  );
+};
+
+export const isDescendantArray = (value: unknown): value is Descendant[] => {
+  return (
+    Array.isArray(value) && value.every((node: unknown) => isDescendant(node))
+  );
 };
