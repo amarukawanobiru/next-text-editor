@@ -21,6 +21,13 @@ export default function RootLayout({ children }: LayoutProps) {
         <div className="min-h-screen">
           <Navigation />
           <main>{children}</main>
+
+          <div
+            id="dummy-block"
+            className="mt-48 h-48 sticky top-full bg-slate-200 text-slate-800 text-2xl font-bold grid place-items-center"
+          >
+            Dummy block
+          </div>
         </div>
       </body>
     </html>

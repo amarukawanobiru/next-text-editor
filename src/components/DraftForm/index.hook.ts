@@ -20,7 +20,7 @@ export const useDraftForm = () => {
   const { debounceValue } = useDebounce(editorValue, 1000);
 
   useEffect(() => {
-    if (titleField) return;
+    if (titleField !== null) return;
 
     const draftTitle = localStorage.getItem(LOCAL_STORAGE_KEY_DRAFT_TITLE);
 
