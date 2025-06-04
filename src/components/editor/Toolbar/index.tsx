@@ -4,7 +4,7 @@ import { ToggleBlock } from "@/components/editor/Toolbar/ToggleBlock";
 import { ToggleMark } from "@/components/editor/Toolbar/ToggleMark";
 import { Separator } from "@/components/ui/separator";
 import { InsertImageButton } from "@/components/editor/Toolbar/InsertImageButton";
-import { InsertEmptyBlockBelowButton } from "@/components/editor/Toolbar/InsertEmptyBlockBelowButton";
+import { InsertEmptyBlockAfterButton } from "@/components/editor/Toolbar/InsertEmptyBlockAfterButton";
 import { Heading2Icon, Heading3Icon } from "lucide-react";
 
 type ToolbarProps = React.ComponentPropsWithoutRef<"div">;
@@ -44,7 +44,7 @@ export const Toolbar = ({ className, ...props }: ToolbarProps) => {
         {blocks.map(({ format, icon, label }) => (
           <ToggleBlock key={format} format={format} icon={icon} label={label} />
         ))}
-        <InsertEmptyBlockBelowButton />
+        <InsertEmptyBlockAfterButton />
         <div className="h-5">
           <Separator orientation="vertical" />
         </div>

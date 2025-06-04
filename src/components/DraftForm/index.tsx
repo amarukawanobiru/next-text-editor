@@ -64,7 +64,7 @@ export const DraftForm = ({ className, ...props }: DraftFormProps) => {
           onChange={(newValue) => setEditorValue(newValue)}
         >
           <div className="mt-4 border rounded-xs">
-            <Toolbar className="mt-4 mx-4 sticky top-4 z-30" />
+            <Toolbar className="mt-4 mx-4 sticky top-0 z-30" />
             <Editable
               id="editor"
               renderElement={renderElement}

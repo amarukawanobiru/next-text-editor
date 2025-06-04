@@ -6,7 +6,7 @@ import type { CustomElement } from "@/types/slate";
 import { Button } from "@/components/ui/button";
 import { CornerDownLeftIcon } from "lucide-react";
 
-export const InsertEmptyBlockBelowButton = () => {
+export const InsertEmptyBlockAfterButton = () => {
   const editor = useSlate();
 
   const handleMouseDown = (e: React.MouseEvent) => {
