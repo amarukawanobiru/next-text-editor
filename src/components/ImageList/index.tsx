@@ -19,7 +19,7 @@ export const ImageList = async ({ className, ...props }: ImageListProps) => {
 
   return (
     <div {...props} className={cn(className)}>
-      <ul className="grid grid-cols-4 gap-1">
+      <ul className="grid grid-cols-4 gap-2">
         {imageList.map(({ id, fileName, altText, fileSize, createdAt }) => (
           <li key={id}>
             <div className="relative">
