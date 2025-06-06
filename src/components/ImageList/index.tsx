@@ -10,7 +10,7 @@ export const ImageList = async ({ className, ...props }: ImageListProps) => {
   if (!imageList) {
     return (
       <div {...props} className={cn(className)}>
-        <p className="text-muted-foreground font-bold">
+        <p className="text-muted-foreground">
           アップロードされた画像がありません。
         </p>
       </div>

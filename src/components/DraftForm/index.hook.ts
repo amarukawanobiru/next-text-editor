@@ -7,30 +7,30 @@ import { useDebounce } from "@/hooks/useDebounce";
 import {
   LOCAL_STORAGE_KEY_DRAFT_TITLE,
   LOCAL_STORAGE_KEY_DRAFT_BODY,
-} from "@/lib/editor/constants";
+} from "@/lib/conform/constants";
 
 const defaultValue: Descendant[] = [
   { type: "paragraph", children: [{ text: "" }] },
 ];
 
 export const useDraftForm = () => {
-  const [titleField, setTitleField] = useState<string | null>(null);
+  const [titleValue, setTitleValue] = useState<string | null>(null);
   const [initialValue, setInitialValue] = useState<Descendant[] | null>(null);
   const [editorValue, setEditorValue] = useState<Descendant[]>();
   const { debounceValue } = useDebounce(editorValue, 1000);
 
   useEffect(() => {
-    if (titleField !== null) return;
+    if (titleValue !== null) return;
 
     const draftTitle = localStorage.getItem(LOCAL_STORAGE_KEY_DRAFT_TITLE);
 
     if (!draftTitle) {
-      setTitleField("");
+      setTitleValue("");
       return;
     }
 
-    setTitleField(draftTitle);
-  }, [titleField]);
+    setTitleValue(draftTitle);
+  }, [titleValue]);
 
   useEffect(() => {
     if (initialValue) return;
@@ -64,5 +64,5 @@ export const useDraftForm = () => {
     }
   }, [debounceValue]);
 
-  return { titleField, initialValue, setEditorValue };
+  return { titleValue, initialValue, editorValue, setEditorValue };
 };
