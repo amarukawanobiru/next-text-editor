@@ -42,7 +42,7 @@ export const FormProvider = ({
     }
 
     toast(<ToastMessage message={result.message} />);
-    router.push(`/${formType}`);
+    router.push("/edit");
   };
   const [state, action] = useActionState(formAction, undefined);
   const [form] = useForm({

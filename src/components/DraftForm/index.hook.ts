@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useMemo, useEffect } from "react";
 import type { Descendant } from "slate";
 import { isDescendantArray } from "@/lib/editor/utils";
 import { useDebounce } from "@/hooks/useDebounce";
@@ -18,6 +18,9 @@ export const useDraftForm = () => {
   const [initialValue, setInitialValue] = useState<Descendant[] | null>(null);
   const [editorValue, setEditorValue] = useState<Descendant[]>();
   const { debounceValue } = useDebounce(editorValue, 1000);
+  const serializedEditorValue = useMemo(() => {
+    return editorValue ? JSON.stringify(editorValue) : "";
+  }, [editorValue]);
 
   useEffect(() => {
     if (titleValue !== null) return;
@@ -64,5 +67,10 @@ export const useDraftForm = () => {
     }
   }, [debounceValue]);
 
-  return { titleValue, initialValue, editorValue, setEditorValue };
+  return {
+    titleValue,
+    initialValue,
+    setEditorValue,
+    serializedEditorValue,
+  };
 };

@@ -17,7 +17,7 @@ export const DraftForm = ({ className, ...props }: DraftFormProps) => {
   const [title] = useField<string>("title");
   const [body] = useField<string>("body");
   const { editor, renderElement, renderLeaf } = useEditor();
-  const { titleValue, initialValue, editorValue, setEditorValue } =
+  const { titleValue, initialValue, setEditorValue, serializedEditorValue } =
     useDraftForm();
 
   if (titleValue === null || initialValue === null) {
@@ -49,9 +49,6 @@ export const DraftForm = ({ className, ...props }: DraftFormProps) => {
           </label>
           <Textarea
             onChange={(e) => {
-              // const borderYWidth = 2;
-              // e.target.style.height = "auto";
-              // e.target.style.height = `${e.target.scrollHeight + borderYWidth}px`;
               localStorage.setItem(
                 LOCAL_STORAGE_KEY_DRAFT_TITLE,
                 e.target.value,
@@ -89,7 +86,7 @@ export const DraftForm = ({ className, ...props }: DraftFormProps) => {
           id={body.id}
           key={body.key}
           name={body.name}
-          value={JSON.stringify(editorValue)}
+          value={serializedEditorValue}
         />
       </form>
     </div>
