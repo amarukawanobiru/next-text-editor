@@ -7,7 +7,7 @@ import { draftFormSchema } from "@/lib/schema/draftFormSchema";
 import { isDescendantArray } from "@/lib/editor/utils";
 import prisma from "@/lib/db/prisma";
 
-export const createDraftDocument = async (
+export const createDocument = async (
   formData: FormData,
 ): Promise<FormActionResult> => {
   const submission = parseWithZod(formData, { schema: draftFormSchema });
@@ -50,5 +50,6 @@ export const createDraftDocument = async (
   }
 
   revalidatePath("/");
+  revalidatePath("/edit");
   return { success: true, message: "下書きの保存が完了しました。" };
 };

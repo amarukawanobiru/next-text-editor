@@ -1,16 +1,16 @@
 "use client";
 
 import type { LayoutProps } from "@/types";
-import { createDocument } from "@/lib/db/createDocument";
-import { draftFormSchema } from "@/lib/schema/draftFormSchema";
+import { updateDocument } from "@/lib/db/updateDocument";
+import { editFormSchema } from "@/lib/schema/editFormSchema";
 import { FormProvider } from "@/contexts/FormProvider";
 
 export default function Layout({ children }: LayoutProps) {
   return (
     <FormProvider
-      formType="draft"
-      submitAction={createDocument}
-      schema={draftFormSchema}
+      formType="edit"
+      submitAction={updateDocument}
+      schema={editFormSchema}
     >
       {children}
     </FormProvider>

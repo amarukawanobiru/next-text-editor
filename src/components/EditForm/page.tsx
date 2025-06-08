@@ -1,26 +1,49 @@
 "use client";
 
-import { useDraftForm } from "@/components/DraftForm/index.hook";
+import { useEditForm } from "@/components/EditForm/index.hook";
 import { useFormMetadata, useField } from "@conform-to/react";
 import { useEditor } from "@/hooks/editor/useEditor";
-import { LOCAL_STORAGE_KEY_DRAFT_TITLE } from "@/lib/conform/constants";
+import {
+  LOCAL_STORAGE_KEY_EDITING_TITLE,
+  LOCAL_STORAGE_KEY_EDITING_BODY,
+} from "@/lib/conform/constants";
 import { Slate, Editable } from "slate-react";
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 import { Toolbar } from "@/components/editor/Toolbar";
 import { LoaderIcon } from "lucide-react";
 
-type DraftFormProps = React.ComponentPropsWithoutRef<"div">;
+type EditFormProps = {
+  documentId: string;
+  documentTitle: string;
+  documentBody: string;
+} & React.ComponentPropsWithoutRef<"div">;
 
-export const DraftForm = ({ className, ...props }: DraftFormProps) => {
+export const EditForm = ({
+  documentId,
+  documentTitle,
+  documentBody,
+  className,
+  ...props
+}: EditFormProps) => {
+  const {
+    idValue,
+    titleValue,
+    initialValue,
+    setEditorValue,
+    serializedEditorValue,
+  } = useEditForm({
+    documentId,
+    documentTitle,
+    documentBody,
+  });
   const form = useFormMetadata();
+  const [id] = useField<string>("id");
   const [title] = useField<string>("title");
   const [body] = useField<string>("body");
   const { editor, renderElement, renderLeaf } = useEditor();
-  const { titleValue, initialValue, setEditorValue, serializedEditorValue } =
-    useDraftForm();
 
-  if (titleValue === null || initialValue === null) {
+  if (idValue === null || titleValue === null || initialValue === null) {
     return (
       <div {...props} className={cn(className)}>
         <div className="flex items-center gap-x-2 animate-pulse">
@@ -50,7 +73,7 @@ export const DraftForm = ({ className, ...props }: DraftFormProps) => {
           <Textarea
             onChange={(e) => {
               localStorage.setItem(
-                LOCAL_STORAGE_KEY_DRAFT_TITLE,
+                LOCAL_STORAGE_KEY_EDITING_TITLE,
                 e.target.value,
               );
             }}
@@ -79,6 +102,14 @@ export const DraftForm = ({ className, ...props }: DraftFormProps) => {
             />
           </div>
         </Slate>
+
+        <input
+          type="hidden"
+          id={id.id}
+          key={id.key}
+          name={id.name}
+          value={idValue}
+        />
 
         <input
           type="hidden"

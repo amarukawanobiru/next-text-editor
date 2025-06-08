@@ -36,7 +36,7 @@ export const useDraftForm = () => {
   }, [titleValue]);
 
   useEffect(() => {
-    if (initialValue) return;
+    if (initialValue !== null) return;
 
     const draftBody = localStorage.getItem(LOCAL_STORAGE_KEY_DRAFT_BODY);
 

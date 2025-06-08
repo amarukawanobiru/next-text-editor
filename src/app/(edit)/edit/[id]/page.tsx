@@ -1,6 +1,6 @@
 import { fetchDocumentById } from "@/lib/db/fetchDocumentById";
-import { isDescendantArray } from "@/lib/editor/utils";
 import { Heading } from "@/components/Heading";
+import { EditForm } from "@/components/EditForm/page";
 
 type EditFormProps = {
   params: Promise<{ id: string }>;
@@ -15,15 +15,16 @@ export default async function Page({ params }: EditFormProps) {
 
   if (!document) return null;
 
-  const initialValue = JSON.parse(document.body);
-
-  if (!isDescendantArray(initialValue)) return null;
-
   return (
     <section className="px-6 pt-10">
       <Heading title="編集" description="EditForm" />
 
-      <div>{document.title}</div>
+      <EditForm
+        documentId={document.id}
+        documentTitle={document.title}
+        documentBody={document.body}
+        className="mt-10 max-w-4xl"
+      />
     </section>
   );
 }
