@@ -1,14 +1,10 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import type { Descendant } from "slate";
 import { isDescendantArray } from "@/lib/editor/utils";
 import { useDebounce } from "@/hooks/useDebounce";
-import {
-  LOCAL_STORAGE_KEY_EDITING_ID,
-  LOCAL_STORAGE_KEY_EDITING_TITLE,
-  LOCAL_STORAGE_KEY_EDITING_BODY,
-} from "@/lib/conform/constants";
+import { getStorageKeys } from "@/lib/conform/utils";
 
 type UseEditFormProps = {
   documentId: string;
@@ -21,7 +17,7 @@ export const useEditForm = ({
   documentTitle,
   documentBody,
 }: UseEditFormProps) => {
-  const [savedId, setSavedId] = useState<string>("");
+  const storageKeys = getStorageKeys("edit");
   const [idValue, setIdValue] = useState<string | null>(null);
   const [titleValue, setTitleValue] = useState<string | null>(null);
   const [initialValue, setInitialValue] = useState<Descendant[] | null>(null);
@@ -31,110 +27,81 @@ export const useEditForm = ({
     return editorValue ? JSON.stringify(editorValue) : "";
   }, [editorValue]);
 
+  const setItemToLocalStorage = useCallback(
+    (values: string[]) => {
+      Object.values(storageKeys).forEach((el, i) =>
+        localStorage.setItem(el, values[i]),
+      );
+    },
+    [storageKeys],
+  );
+
+  const setEditingValues = useCallback(
+    ({ id, title, body }: { id: string; title: string; body: string }) => {
+      const parsedBody = JSON.parse(body);
+
+      setIdValue(id);
+      setTitleValue(title);
+      setInitialValue(parsedBody);
+      setEditorValue(parsedBody);
+      setItemToLocalStorage([id, title, body]);
+    },
+    [setItemToLocalStorage],
+  );
+
   useEffect(() => {
-    const editingId = localStorage.getItem(LOCAL_STORAGE_KEY_EDITING_ID);
+    if (idValue) return;
 
-    if (!editingId) return;
+    const editingId = localStorage.getItem(storageKeys.idKey as string);
+    const editingTitle = localStorage.getItem(storageKeys.titleKey);
+    const editingBody = localStorage.getItem(storageKeys.bodyKey);
 
-    setSavedId(editingId);
-  }, []);
-
-  useEffect(() => {
-    if (idValue !== null) return;
-
-    if (!savedId) {
-      setIdValue(documentId);
-      localStorage.setItem(LOCAL_STORAGE_KEY_EDITING_ID, documentId);
-      console.log("!savedId");
+    if (!editingId || !editingTitle || !editingBody) {
+      setEditingValues({
+        id: documentId,
+        title: documentTitle,
+        body: documentBody,
+      });
       return;
     }
 
-    if (savedId === documentId) {
-      setIdValue(savedId);
-      localStorage.setItem(LOCAL_STORAGE_KEY_EDITING_ID, savedId);
-      console.log("同じ記事にアクセスしました！");
+    if (!isDescendantArray(JSON.parse(editingBody))) {
+      setEditingValues({
+        id: documentId,
+        title: documentTitle,
+        body: documentBody,
+      });
       return;
     }
 
-    setIdValue(documentId);
-    localStorage.setItem(LOCAL_STORAGE_KEY_EDITING_ID, documentId);
-  }, [idValue, savedId, documentId]);
+    if (editingId === documentId) {
+      setEditingValues({
+        id: editingId,
+        title: editingTitle,
+        body: editingBody,
+      });
+      return;
+    }
 
-  // useEffect(() => {
-  //   if (titleValue !== null) return;
+    setEditingValues({
+      id: documentId,
+      title: documentTitle,
+      body: documentBody,
+    });
+  }, [
+    idValue,
+    storageKeys,
+    documentId,
+    documentTitle,
+    documentBody,
+    setEditingValues,
+  ]);
 
-  //   const editingId = localStorage.getItem(LOCAL_STORAGE_KEY_EDITING_ID);
-
-  //   if (!editingId) {
-  //     setTitleValue(documentTitle);
-  //     localStorage.setItem(LOCAL_STORAGE_KEY_EDITING_TITLE, documentTitle);
-  //     return;
-  //   }
-
-  //   const editingTitle = localStorage.getItem(LOCAL_STORAGE_KEY_EDITING_TITLE);
-
-  //   if (editingId === documentId && editingTitle) {
-  //     setTitleValue(editingTitle);
-  //     localStorage.setItem(LOCAL_STORAGE_KEY_EDITING_TITLE, editingTitle);
-  //     return;
-  //   }
-
-  //   setTitleValue(documentTitle);
-  //   localStorage.setItem(LOCAL_STORAGE_KEY_EDITING_TITLE, documentTitle);
-  // }, [titleValue, documentId, documentTitle]);
-
-  // useEffect(() => {
-  //   if (initialValue !== null) return;
-
-  //   const editingId = localStorage.getItem(LOCAL_STORAGE_KEY_EDITING_ID);
-
-  //   const parsedBody = JSON.parse(documentBody);
-
-  //   if (!editingId) {
-  //     setInitialValue(parsedBody);
-  //     setEditorValue(parsedBody);
-  //     localStorage.setItem(LOCAL_STORAGE_KEY_EDITING_BODY, documentBody);
-  //     return;
-  //   }
-
-  //   const editingBody = localStorage.getItem(LOCAL_STORAGE_KEY_EDITING_BODY);
-
-  //   if (!editingBody) {
-  //     setInitialValue(parsedBody);
-  //     setEditorValue(parsedBody);
-  //     localStorage.setItem(LOCAL_STORAGE_KEY_EDITING_BODY, documentBody);
-  //     return;
-  //   }
-
-  //   const parsedEditingBody = JSON.parse(editingBody);
-
-  //   if (!isDescendantArray(parsedEditingBody)) {
-  //     setInitialValue(parsedBody);
-  //     setEditorValue(parsedBody);
-  //     localStorage.setItem(LOCAL_STORAGE_KEY_EDITING_BODY, parsedEditingBody);
-  //     return;
-  //   }
-
-  //   if (editingId === documentId && editingBody) {
-  //     setInitialValue(parsedEditingBody);
-  //     setEditorValue(parsedEditingBody);
-  //     localStorage.setItem(LOCAL_STORAGE_KEY_EDITING_BODY, editingBody);
-  //     return;
-  //   }
-
-  //   setInitialValue(parsedBody);
-  //   setEditorValue(parsedBody);
-  //   localStorage.setItem(LOCAL_STORAGE_KEY_EDITING_BODY, parsedBody);
-  // }, [initialValue, documentId, documentBody]);
-
-  // useEffect(() => {
-  //   if (debounceValue) {
-  //     localStorage.setItem(
-  //       LOCAL_STORAGE_KEY_EDITING_BODY,
-  //       JSON.stringify(debounceValue),
-  //     );
-  //   }
-  // }, [debounceValue]);
+  useEffect(() => {
+    if (debounceValue) {
+      localStorage.setItem(storageKeys.bodyKey, JSON.stringify(debounceValue));
+    }
+  }, [debounceValue, storageKeys.bodyKey]);
 
   return {
     idValue,

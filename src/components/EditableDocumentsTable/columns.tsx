@@ -11,6 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { ChangeDocumentPublishStatusButton } from "@/components/EditableDocumentsTable/ChangeDocumentPublishStatusButton";
 import { CircleMinusIcon, CircleCheckIcon, EllipsisIcon } from "lucide-react";
 
 type EditableContent = {
@@ -58,7 +59,10 @@ export const columns: ColumnDef<EditableContent>[] = [
             <span className="ml-1.5">停止中</span>
           </div>
         ) : (
-          "公開中"
+          <div className="flex items-center text-success">
+            <CircleCheckIcon size={14} />
+            <span className="ml-1.5">公開中</span>
+          </div>
         )}
         <div className="self-stretch">
           <Separator orientation="vertical" />
@@ -94,6 +98,7 @@ export const columns: ColumnDef<EditableContent>[] = [
     enableHiding: false,
     cell: ({ row }) => {
       const documentId = row.original.id;
+      const isDraft = row.original.draft;
 
       return (
         <DropdownMenu>
@@ -107,8 +112,20 @@ export const columns: ColumnDef<EditableContent>[] = [
             <DropdownMenuItem asChild>
               <Link href={`/edit/${documentId}`}>編集</Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>公開設定</DropdownMenuItem>
-            <DropdownMenuItem>削除</DropdownMenuItem>
+            <DropdownMenuItem>
+              <ChangeDocumentPublishStatusButton
+                documentId={documentId}
+                isDraft={isDraft}
+              />
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link
+                href={"/"}
+                className="text-destructive focus:text-destructive"
+              >
+                削除
+              </Link>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

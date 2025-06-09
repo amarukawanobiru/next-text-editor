@@ -25,7 +25,7 @@ export const getStorageKeys = (formType: FormType): StorageKeys => {
       return getEditStorageKeys();
     default: {
       const _exhaustiveCheck: never = formType;
-      throw new Error(`Unsupported from type: ${_exhaustiveCheck}`);
+      throw new Error(`Unsupported form type: ${_exhaustiveCheck}`);
     }
   }
 };

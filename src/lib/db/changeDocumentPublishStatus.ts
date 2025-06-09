@@ -1,0 +1,31 @@
+"use server";
+
+import { revalidatePath } from "next/cache";
+import prisma from "@/lib/db/prisma";
+
+type ChangeDocumentPublishStatusResult = {
+  success: boolean;
+};
+
+export const changeDocumentPublishStatus = async (
+  documentId: string,
+  isDraft: boolean,
+): Promise<ChangeDocumentPublishStatusResult> => {
+  try {
+    await prisma.document.update({
+      where: { id: documentId },
+      data: {
+        draft: !isDraft,
+      },
+    });
+
+    revalidatePath("/");
+    revalidatePath("/edit");
+
+    return { success: true };
+  } catch (error) {
+    console.error("Changing document publish status: ", error);
+
+    return { success: false };
+  }
+};
