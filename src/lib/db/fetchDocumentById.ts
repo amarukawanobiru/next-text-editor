@@ -6,11 +6,6 @@ export const fetchDocumentById = async (id: string) => {
   try {
     const document = await prisma.document.findUnique({
       where: { id },
-      select: {
-        id: true,
-        title: true,
-        body: true,
-      },
     });
 
     return document;

@@ -5,7 +5,6 @@ import { useFormStatus } from "react-dom";
 import { useRouter } from "next/navigation";
 import type { FormType } from "@/lib/conform/constants";
 import { useFormMetadata, useField } from "@conform-to/react";
-import { isDescendantArray } from "@/lib/editor/utils";
 
 type UseFormPreviewProps = {
   formType: FormType;
