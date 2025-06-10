@@ -2,8 +2,6 @@
 
 import Link from "next/link";
 import type { ColumnDef } from "@tanstack/react-table";
-import { cn } from "@/lib/utils";
-import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -24,35 +22,18 @@ type EditableContent = {
 export const columns: ColumnDef<EditableContent>[] = [
   {
     accessorKey: "title",
-    header: () => (
-      <div className="flex items-center justify-between">
-        タイトル
-        <div className="self-stretch">
-          <Separator orientation="vertical" />
-        </div>
-      </div>
-    ),
+    header: () => <div>タイトル</div>,
     cell: ({ row }) => (
-      <div className="flex items-center justify-between">
+      <div className="w-120 line-clamp-1 text-ellipsis max-[900px]:w-80">
         {row.getValue("title")}
-        <div className="self-stretch">
-          <Separator orientation="vertical" />
-        </div>
       </div>
     ),
   },
   {
     accessorKey: "draft",
-    header: () => (
-      <div className="flex items-center justify-between">
-        公開設定
-        <div className="self-stretch">
-          <Separator orientation="vertical" />
-        </div>
-      </div>
-    ),
+    header: () => <div>公開設定</div>,
     cell: ({ row }) => (
-      <div className="flex items-center justify-between">
+      <div>
         {row.getValue("draft") ? (
           <div className="flex items-center text-warning">
             <CircleMinusIcon size={14} />
@@ -64,38 +45,29 @@ export const columns: ColumnDef<EditableContent>[] = [
             <span className="ml-1.5">公開中</span>
           </div>
         )}
-        <div className="self-stretch">
-          <Separator orientation="vertical" />
-        </div>
       </div>
     ),
   },
   {
     accessorKey: "createdAt",
-    header: () => (
-      <div className="flex items-center justify-between">
-        作成日時
-        <div className="self-stretch">
-          <Separator orientation="vertical" />
-        </div>
-      </div>
-    ),
+    header: () => <div>作成日時</div>,
     cell: ({ row }) => {
       const date = row.getValue("createdAt") as Date;
 
       return (
-        <div className="flex items-center justify-between">
-          {date.toLocaleDateString("ja-JP")}
-          <div className="self-stretch">
-            <Separator orientation="vertical" />
-          </div>
+        <div>
+          {date.toLocaleDateString("ja-JP", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          })}
         </div>
       );
     },
   },
   {
     id: "actions",
-    enableHiding: false,
+    enableHiding: true,
     cell: ({ row }) => {
       const documentId = row.original.id;
       const isDraft = row.original.draft;
