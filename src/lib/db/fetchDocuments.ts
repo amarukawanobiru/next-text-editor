@@ -5,11 +5,13 @@ import prisma from "@/lib/db/prisma";
 export const fetchDocuments = async () => {
   try {
     const documents = await prisma.document.findMany({
+      where: { deleted: false },
       select: {
         id: true,
         title: true,
         draft: true,
         createdAt: true,
+        updatedAt: true,
       },
     });
 

@@ -5,7 +5,7 @@ import prisma from "@/lib/db/prisma";
 export const fetchDocumentById = async (id: string) => {
   try {
     const document = await prisma.document.findUnique({
-      where: { id },
+      where: { id, deleted: false },
     });
 
     return document;

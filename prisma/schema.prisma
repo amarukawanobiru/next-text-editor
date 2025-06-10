@@ -16,6 +16,7 @@ model Document {
   title     String
   body      String
   draft     Boolean  @default(true)
+  deleted   Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

@@ -44,7 +44,7 @@ export const EditableDocumentsTable = <TData, TValue>({
       <Table>
         <TableHeader className="bg-accent">
           {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
+            <TableRow key={headerGroup.id} className="hover:bg-transparent">
               {headerGroup.headers.map((header) => {
                 return (
                   <TableHead key={header.id}>
@@ -66,6 +66,7 @@ export const EditableDocumentsTable = <TData, TValue>({
             table.getRowModel().rows.map((row) => (
               <TableRow
                 key={row.id}
+                className="hover:bg-transparent"
                 data-state={row.getIsSelected() && "selected"}
               >
                 {row.getVisibleCells().map((cell) => (
