@@ -11,6 +11,7 @@ export const deleteDocument = async (
       where: { id: documentId },
       data: {
         deleted: true,
+        updatedAt: new Date(),
       },
     });
   } catch (error) {

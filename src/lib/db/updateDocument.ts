@@ -29,7 +29,10 @@ export const updateDocument = async (
   }
 
   try {
-    await prisma.document.update({ where: { id }, data: { title, body } });
+    await prisma.document.update({
+      where: { id },
+      data: { title, body, updatedAt: new Date() },
+    });
   } catch (error) {
     if (error instanceof Error) {
       console.error("Updating document error: ", error.message);

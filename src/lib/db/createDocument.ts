@@ -29,7 +29,9 @@ export const createDocument = async (
   }
 
   try {
-    await prisma.document.create({ data: { title, body } });
+    await prisma.document.create({
+      data: { title, body, updatedAt: new Date() },
+    });
   } catch (error) {
     if (error instanceof Error) {
       console.error("Creating draft document error: ", error.message);
