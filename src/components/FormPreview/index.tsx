@@ -28,7 +28,7 @@ export const FormPreview = ({
       <div className="py-10 px-6 border rounded-xs">
         <div className="text-3xl font-bold">{title.value}</div>
 
-        <div id="editor" className="mt-10 space-y-4">
+        <div id="editor" className="mt-10 p-0 space-y-4">
           {parse(serialize(JSON.parse(body.value)))}
         </div>
       </div>

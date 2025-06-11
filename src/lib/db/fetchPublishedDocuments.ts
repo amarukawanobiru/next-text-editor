@@ -10,6 +10,7 @@ export const fetchPublishedDocuments = async () => {
         id: true,
         title: true,
         createdAt: true,
+        updatedAt: true,
       },
     });
 
