@@ -9,6 +9,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
   DialogTrigger,
   DialogClose,
 } from "@/components/ui/dialog";
@@ -64,9 +65,12 @@ export const DeleteImageDialog = ({
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>
-            <p className="my-2 text-sm">「{fileName}」</p>
-            <p className="text-sm">を削除しますか？</p>
+            <p className="my-2 text-base break-all">「{fileName}」</p>
+            <p className="text-base">を削除しますか？</p>
           </DialogTitle>
+          <DialogDescription>
+            一度削除すると元に戻すことができません。
+          </DialogDescription>
         </DialogHeader>
 
         <DialogFooter>
