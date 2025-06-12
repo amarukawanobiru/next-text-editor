@@ -30,16 +30,18 @@ export const DocumentCard = ({
             </time>
           </p>
 
-          <p className="text-xs">
-            更新日時:
-            <time dateTime={formatLocalDate(updatedAt)}>
-              {updatedAt.toLocaleDateString("ja-JP", {
-                year: "numeric",
-                month: "2-digit",
-                day: "2-digit",
-              })}
-            </time>
-          </p>
+          {createdAt.toISOString() !== updatedAt.toISOString() && (
+            <p className="text-xs">
+              更新日時:
+              <time dateTime={formatLocalDate(updatedAt)}>
+                {updatedAt.toLocaleDateString("ja-JP", {
+                  year: "numeric",
+                  month: "2-digit",
+                  day: "2-digit",
+                })}
+              </time>
+            </p>
+          )}
         </div>
       </Link>
     </article>
