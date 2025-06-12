@@ -19,6 +19,8 @@ export const FormPreview = ({
   ...props
 }: FormPreviewProps) => {
   const { form, id, title, body, isSending } = useFormPreview({ formType });
+  const cancelPath =
+    formType === "draft" ? `/${formType}` : `/${formType}/${id.value}`;
 
   // 渡された値がないときに表示する画面を作る
   if (!title.value || !body.value) return null;
@@ -49,7 +51,7 @@ export const FormPreview = ({
 
         <div className="mt-6 ml-auto w-fit flex items-center gap-x-6">
           <Button asChild variant="outline" className="rounded-xs">
-            <Link href={`/${formType}`}>キャンセル</Link>
+            <Link href={cancelPath}>キャンセル</Link>
           </Button>
 
           <Button
