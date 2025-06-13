@@ -18,6 +18,8 @@ type ImageCardProps = {
   id: number;
   fileName: string;
   altText: string;
+  imageWidth: number;
+  imageHeight: number;
   fileSize: number;
   createdAt: Date;
 };
@@ -26,6 +28,8 @@ export const ImageCard = ({
   id,
   fileName,
   altText,
+  imageWidth,
+  imageHeight,
   fileSize,
   createdAt,
 }: ImageCardProps) => {
@@ -34,6 +38,8 @@ export const ImageCard = ({
       <ImageMenu
         fileName={fileName}
         altText={altText}
+        imageWidth={imageWidth}
+        imageHeight={imageHeight}
         fileSize={fileSize}
         createdAt={createdAt}
         className="absolute right-1 top-1"
@@ -50,12 +56,16 @@ export const ImageCard = ({
 const ImageMenu = ({
   fileName,
   altText,
+  imageWidth,
+  imageHeight,
   fileSize,
   createdAt,
   className,
 }: {
   fileName: string;
   altText: string;
+  imageWidth: number;
+  imageHeight: number;
   fileSize: number;
   createdAt: Date;
   className?: string;
@@ -84,6 +94,8 @@ const ImageMenu = ({
           <ImageDetailDialog
             fileName={fileName}
             altText={altText}
+            imageWidth={imageWidth}
+            imageHeight={imageHeight}
             fileSize={fileSize}
             createdAt={createdAt}
             setIsMenuOpen={setIsMenuOpen}

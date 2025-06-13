@@ -21,12 +21,21 @@ export const POST = async (req: NextRequest) => {
     .webp({ quality: 80 })
     .toBuffer();
   const fileSize = converted.length;
+  const convertedMetadata = await sharp(converted).metadata();
+  const imageWidth = convertedMetadata.width;
+  const imageHeight = convertedMetadata.height;
   const fileName = `${crypto.randomUUID()}.webp`;
 
   try {
     await prisma.$transaction(async (tw) => {
       await tw.uploadedFile.create({
-        data: { fileName, altText, fileSize },
+        data: {
+          fileName,
+          altText,
+          fileSize,
+          imageWidth,
+          imageHeight,
+        },
       });
 
       const filePath = path.join(process.cwd(), "public/uploads", fileName);
@@ -36,7 +45,7 @@ export const POST = async (req: NextRequest) => {
     revalidatePath("/uploaded");
     return NextResponse.json({ success: true, fileName });
   } catch (error) {
-    console.log("ok");
+    console.error("Uploading image error: ", error);
     return NextResponse.json({
       success: false,
       message: "画像のアップロードに失敗しました。",

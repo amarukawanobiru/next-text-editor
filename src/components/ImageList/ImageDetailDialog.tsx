@@ -17,6 +17,8 @@ import {
 type DeleteImageDialogProps = {
   fileName: string;
   altText: string;
+  imageWidth: number;
+  imageHeight: number;
   fileSize: number;
   createdAt: Date;
   setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -25,6 +27,8 @@ type DeleteImageDialogProps = {
 export const ImageDetailDialog = ({
   fileName,
   altText,
+  imageWidth,
+  imageHeight,
   fileSize,
   createdAt,
   setIsMenuOpen,
@@ -53,7 +57,9 @@ export const ImageDetailDialog = ({
               </div>
               <div className="flex items-center gap-x-1">
                 <dt>画像サイズ</dt>
-                <dd>実装予定 ??? x ???</dd>
+                <dd>
+                  {imageWidth} * {imageHeight}
+                </dd>
               </div>
               <div className="flex items-center gap-x-1">
                 <dt>ファイルサイズ:</dt>

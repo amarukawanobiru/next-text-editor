@@ -22,9 +22,11 @@ model Document {
 }
 
 model UploadedFile {
-  id        Int      @id @default(autoincrement())
-  fileName  String   @unique
-  altText   String
-  fileSize  Int
-  createdAt DateTime @default(now())
+  id          Int      @id @default(autoincrement())
+  fileName    String   @unique
+  altText     String
+  imageWidth  Int
+  imageHeight Int
+  fileSize    Int
+  createdAt   DateTime @default(now())
 }
