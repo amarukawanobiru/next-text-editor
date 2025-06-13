@@ -6,7 +6,7 @@ export default function Page() {
     <section className="px-6 pt-10">
       <Heading title="アップロードされた画像" description="UploadedFiles" />
 
-      <ImageList className="mt-10" />
+      <ImageList className="mt-10 max-w-screen-xl" />
     </section>
   );
 }
