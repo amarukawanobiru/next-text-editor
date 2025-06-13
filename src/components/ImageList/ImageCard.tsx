@@ -9,6 +9,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { UpdateAltTextDialog } from "@/components/ImageList/UpdateAltTextDialog";
+import { ImageDetailDialog } from "@/components/ImageList/ImageDetailDialog";
 import { DeleteImageDialog } from "@/components/ImageList/DeleteImageDialog";
 import { EllipsisIcon } from "lucide-react";
 
@@ -29,7 +31,13 @@ export const ImageCard = ({
 }: ImageCardProps) => {
   return (
     <div className="relative">
-      <ImageMenu fileName={fileName} className="absolute right-1 top-1" />
+      <ImageMenu
+        fileName={fileName}
+        altText={altText}
+        fileSize={fileSize}
+        createdAt={createdAt}
+        className="absolute right-1 top-1"
+      />
       <img
         src={`/uploads/${fileName}`}
         alt={altText}
@@ -41,8 +49,17 @@ export const ImageCard = ({
 
 const ImageMenu = ({
   fileName,
+  altText,
+  fileSize,
+  createdAt,
   className,
-}: { fileName: string; className?: string }) => {
+}: {
+  fileName: string;
+  altText: string;
+  fileSize: number;
+  createdAt: Date;
+  className?: string;
+}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -55,8 +72,23 @@ const ImageMenu = ({
           <EllipsisIcon />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem>説明文の変更</DropdownMenuItem>
+      <DropdownMenuContent className="w-[128px]">
+        <DropdownMenuItem asChild>
+          <UpdateAltTextDialog
+            fileName={fileName}
+            altText={altText}
+            setIsMenuOpen={setIsMenuOpen}
+          />
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <ImageDetailDialog
+            fileName={fileName}
+            altText={altText}
+            fileSize={fileSize}
+            createdAt={createdAt}
+            setIsMenuOpen={setIsMenuOpen}
+          />
+        </DropdownMenuItem>
         <DropdownMenuItem
           asChild
           className="text-destructive focus:text-destructive"
