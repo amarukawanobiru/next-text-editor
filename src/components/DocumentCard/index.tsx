@@ -17,7 +17,9 @@ export const DocumentCard = ({
   return (
     <article className="hover:opacity-60 group">
       <Link href={`/document/${id}`} className="block py-6">
-        <h2 className="font-bold group-hover:underline">{title}</h2>
+        <h2 className="font-bold line-clamp-2 group-hover:underline">
+          {title}
+        </h2>
         <div className="mt-1 flex items-center gap-x-4">
           <p className="text-xs">
             作成日時:

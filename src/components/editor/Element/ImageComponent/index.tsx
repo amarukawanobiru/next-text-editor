@@ -2,7 +2,7 @@ import { useImageComponent } from "@/components/editor/Element/ImageComponent/in
 import type { ImageElement, RenderElementPropsFor } from "@/types/slate";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Trash2Icon } from "lucide-react";
+import { Trash2Icon, EllipsisIcon } from "lucide-react";
 
 export const ImageComponent = (props: RenderElementPropsFor<ImageElement>) => {
   const { children, element, attributes, selected, focused, onMouseDown } =
@@ -14,7 +14,7 @@ export const ImageComponent = (props: RenderElementPropsFor<ImageElement>) => {
 
       <div
         contentEditable={false}
-        className="relative mx-auto w-full py-6 px-4 rounded-xs bg-muted"
+        className="relative mx-auto w-full p-6 border border-muted-foreground/30 rounded-xs bg-muted/30 shadow-md"
       >
         <img
           src={`/uploads/${element.url}`}
