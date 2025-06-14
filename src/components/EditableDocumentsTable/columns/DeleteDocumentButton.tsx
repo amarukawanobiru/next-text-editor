@@ -50,8 +50,11 @@ export const DeleteDocumentButton = ({ row }: DeleteDocumentButtonProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger className="mx-auto w-8 h-6 rounded-xs grid place-items-center cursor-pointer group hover:bg-muted">
-        <Trash2Icon size={16} className="text-destructive" />
+      <DialogTrigger className="mx-auto rounded-xs grid place-items-center cursor-pointer group">
+        <p className="flex items-center gap-x-1">
+          <Trash2Icon size={16} className="text-destructive" />
+          <span className="text-destructive group-hover:underline">削除</span>
+        </p>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>

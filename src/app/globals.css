@@ -172,6 +172,7 @@
       margin: 0 auto;
       width: fit-content;
       max-height: 768px;
+      display: block;
     }
   }
 }

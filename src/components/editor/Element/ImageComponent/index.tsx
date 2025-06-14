@@ -14,11 +14,11 @@ export const ImageComponent = (props: RenderElementPropsFor<ImageElement>) => {
 
       <div
         contentEditable={false}
-        className="relative mx-auto w-full bg-foreground"
+        className="relative mx-auto w-full py-6 px-4 rounded-xs bg-muted"
       >
         <img
           src={`/uploads/${element.url}`}
-          alt={element.caption}
+          alt={element.alt}
           sizes="(max-width: 768px) 100vw 768px"
           className="block object-contain"
         />

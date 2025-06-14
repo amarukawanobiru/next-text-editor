@@ -87,13 +87,9 @@ export const toggleMark = (editor: CustomEditor, format: CustomTextKey) => {
   }
 };
 
-export const insertImage = (
-  editor: CustomEditor,
-  url: string,
-  caption: string,
-) => {
+export const insertImage = (editor: CustomEditor, url: string, alt: string) => {
   const text = { text: "" };
-  const image: ImageElement = { type: "image", url, caption, children: [text] };
+  const image: ImageElement = { type: "image", url, alt, children: [text] };
   Transforms.insertNodes(editor, image);
   const paragraph: ParagraphElement = {
     type: "paragraph",

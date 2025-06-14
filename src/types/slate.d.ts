@@ -28,7 +28,7 @@ export type ParagraphElement = {
 export type ImageElement = {
   type: "image";
   url: string;
-  caption: string;
+  alt: string;
   children: EmptyText[];
 };
 
