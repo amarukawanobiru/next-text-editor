@@ -4,6 +4,8 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Trash2Icon, EllipsisIcon } from "lucide-react";
 
+import { UpdateAltText } from "./UpdateAltText";
+
 export const ImageComponent = (props: RenderElementPropsFor<ImageElement>) => {
   const { children, element, attributes, selected, focused, onMouseDown } =
     useImageComponent(props);
@@ -36,6 +38,14 @@ export const ImageComponent = (props: RenderElementPropsFor<ImageElement>) => {
           >
             <Trash2Icon />
           </Button>
+        </div>
+
+        <div
+          className={cn("absolute bottom-4 right-4 z-20 invisible", {
+            visible: selected && focused,
+          })}
+        >
+          <UpdateAltText element={element} />
         </div>
       </div>
     </div>
